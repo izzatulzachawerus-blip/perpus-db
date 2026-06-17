@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>User</h2>
+<p>Data siswa yang bisa meminjam buku.</p>
+
+<a href="/siswa/list/" class="btn-tambah">+ Tambah User</a>
+
+<br><br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Kelas</th>
+            <th>NIS</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in data %}
+        <tr>
+            <td>{{ s.0 }}</td>
+            <td>{{ s.1 }}</td>
+            <td>{{ s.2 }}</td>
+            <td>{{ s.3 }}</td>
+            <td>
+                <span class="status">Aktif</span>
+            </td>
+            <td>
+                <a href="/siswa/detail/{{ s.0 }}" class="btn-detail">Detail</a>
+                <a href="/siswa/edit/{{ s.0 }}" class="btn-edit">Edit</a>
+                <a href="/siswa/delete/{{ s.0 }}" class="btn-hapus">Hapus</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

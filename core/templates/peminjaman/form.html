@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Tambah Peminjaman</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- SISWA -->
+    <select name="siswa" required>
+        <option value="">-- Pilih Siswa --</option>
+        {% for s in siswa %}
+        <option value="{{ s.0 }}">{{ s.1 }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <!-- BUKU -->
+    <select name="buku" required>
+        <option value="">-- Pilih Buku --</option>
+        {% for b in buku %}
+        <option value="{{ b.0 }}">{{ b.1 }} (Stok: {{ b.2 }})</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <!-- TANGGAL -->
+    <input type="date" name="tgl_pinjam" required><br><br>
+    <input type="date" name="jatuh_tempo" required><br><br>
+
+    <!-- LAINNYA -->
+    <input type="text" name="keperluan" placeholder="Keperluan" required><br><br>
+    <textarea name="catatan" placeholder="Catatan"></textarea><br><br>
+
+    <button type="submit">Simpan</button>
+</form>
+
+{% endblock %}

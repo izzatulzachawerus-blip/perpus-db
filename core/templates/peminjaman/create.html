@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Tambah Peminjaman</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Siswa</label>
+    <select name="siswa">
+        {% for s in siswa %}
+        <option value="{{ s.0 }}">{{ s.1 }}</option>
+        {% endfor %}
+    </select><br>
+
+    <label>Buku</label>
+    <select name="buku">
+        {% for b in buku %}
+        <option value="{{ b.0 }}">{{ b.1 }}</option>
+        {% endfor %}
+    </select><br>
+
+    <input type="date" name="tgl"><br>
+    <input type="date" name="tempo"><br>
+
+    <textarea name="keperluan"></textarea><br>
+
+    <button type="submit">Simpan</button>
+</form>
+{% endblock %}

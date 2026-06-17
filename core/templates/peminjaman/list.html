@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Peminjaman</h2>
+<p>Catat peminjaman dan pengembalian buku.</p>
+
+<a href="{% url 'pinjam_tambah' %}" class="btn">+ Pinjam Buku</a>
+
+<br><br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama Peminjam</th>
+            <th>Buku</th>
+            <th>Tanggal Pinjam</th>
+            <th>Jatuh Tempo</th>
+            <th>Keperluan</th>
+            <th>Petugas</th>
+            <th>Status</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in data %}
+        <tr>
+            <td>{{ p.0 }}</td>
+            <td>{{ p.1 }}</td>
+            <td>{{ p.2 }}</td>
+            <td>{{ p.3 }}</td>
+            <td>{{ p.4 }}</td>
+            <td>{{ p.5 }}</td>
+            <td>{{ p.6 }}</td>
+
+            <!-- STATUS -->
+            <td>
+                {% if p.7 == 'dipinjam' %}
+                    <span style="
+                        background:#facc15;
+                        padding:5px 10px;
+                        border-radius:10px;
+                        font-weight:bold;
+                    ">
+                        Dipinjam
+                    </span>
+                {% else %}
+                    <span style="
+                        background:#22c55e;
+                        color:white;
+                        padding:5px 10px;
+                        border-radius:10px;
+                        font-weight:bold;
+                    ">
+                        Dikembalikan
+                    </span>
+                {% endif %}
+            </td>
+
+            <!-- AKSI -->
+            <td>
+                {% if p.7 == 'dipinjam' %}
+                    <a href="{% url 'ubah_status' p.0 %}" 
+                       style="
+                        background:#22c55e;
+                        color:white;
+                        padding:5px 10px;
+                        border-radius:10px;
+                        text-decoration:none;
+                       ">
+                        Kembalikan
+                    </a>
+                {% else %}
+                    <span style="color:gray;">Selesai</span>
+                {% endif %}
+            </td>
+
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9" style="text-align:center; color:gray;">
+                Belum ada data peminjaman
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

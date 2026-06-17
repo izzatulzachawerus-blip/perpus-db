@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perpustakaan</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar h2 {
+            padding: 20px;
+            margin: 0;
+        }
+
+        .menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        .menu a:hover {
+            background: #1e293b;
+            color: white;
+        }
+
+        .admin-box {
+            background: #111827;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        /* CONTENT */
+        .main {
+            flex: 1;
+            background: #f4f6f9;
+            padding: 20px;
+            display: flex;
+            justify-content: center; /* ⬅️ biar ke tengah */
+        }
+
+        /* CONTAINER BIAR RAPI */
+        .container {
+            width: 100%;
+            max-width: 1000px; /* ⬅️ BATAS BIAR GA KELEBARAN */
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        /* CARD GRID DASHBOARD */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .card-box {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        /* TABLE */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 10px;
+        }
+
+        .table thead {
+            background: #f1f1f1;
+        }
+
+        /* BUTTON */
+        .btn-tambah {
+            background: #3b82f6;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .btn-edit {
+            background: #3b82f6;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .btn-hapus {
+            background: #ef4444;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .btn-detail {
+            background: #e5e7eb;
+            padding: 5px 8px;
+            border-radius: 6px;
+        }
+
+        /* STATUS */
+        .status {
+            background: #22c55e;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .status-pinjam {
+            background: orange;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .status-kembali {
+            background: green;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .btn-kembali {
+            background: #16a34a;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        /* BAR */
+        .bar {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .fill,
+        .fill-orange,
+        .fill-green {
+            height: 8px;
+            border-radius: 10px;
+            width: 50%; /* default biar ga error */
+        }
+
+        .fill {
+            background: #3b82f6;
+        }
+
+        .fill-orange {
+            background: orange;
+        }
+
+        .fill-green {
+            background: green;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* DETAIL PAGE */
+        .detail-container {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: #e5e7eb;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .detail-item small {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .detail-item h4 {
+            margin: 5px 0 0;
+        }
+
+        .detail-desc {
+            margin-top: 20px;
+            background: #e5e7eb;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .detail-desc small {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .btn-kembali {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #334155;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        /* DETAIL */
+        .btn-detail {
+            background: #3b82f6; /* biru */
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        /* EDIT */
+        .btn-edit {
+            background: #22c55e; /* hijau */
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        /* HAPUS */
+        .btn-hapus {
+            background: #ef4444; /* merah */
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            margin-top: 15px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: #64748b;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            background: #f8fafc;
+        }
+
+        .form-group textarea {
+            height: 100px;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn-save {
+            background: #3b82f6;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: #e5e7eb;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+
+        .btn-cancel {
+            background: #e5e7eb;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 500px;
+        }
+
+        .btn {
+            background-color: #3b82f6; 
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2563eb; 
+            transform: scale(1.05);
+        }
+
+        body {
+    font-family: Arial;
+    background: #f1f5f9;
+}
+
+/* WRAPPER BIAR PAS */
+.form-box {
+    max-width: 600px; /* ini bikin ga kepanjangan */
+    margin: 35px auto;
+    background: #fff;
+    padding: 20px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+.form-box h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+/* GRID 2 KOLOM */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* FULL WIDTH */
+.full {
+    grid-column: span 2;
+}
+
+/* LABEL */
+label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* INPUT */
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
+
+/* FOCUS */
+input:focus, select:focus, textarea:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
+/* BUTTON */
+.btn-submit {
+    background: #2563eb;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    float: right;
+    margin-top: 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1e40af;
+}
+
+/* box item */
+.box {
+    background: #f9fafb;
+    padding: 14px;
+    border-radius: 12px;
+}
+
+/* label kecil */
+.label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 4px;
+}
+
+/* isi */
+.value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* badge */
+.badge-green {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 12px;
+    background: #dcfce7;
+    color: #16a34a;
+    border-radius: 999px;
+}
+
+.badge-red {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 12px;
+    background: #fee2e2;
+    color: #dc2626;
+    border-radius: 999px;
+}
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div>
+            <h2>📚 SIPUSTAKA</h2>
+
+            <div class="menu">
+                <a href="/">Dashboard</a>
+                <a href="/buku/">Buku</a>
+                <a href="/peminjaman/">Peminjaman</a>
+                <a href="/siswa/">User</a>
+            </div>
+        </div>
+
+        <div class="admin-box">
+            Admin Aktif<br>
+            <b>Ahmad R.</b>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="main">
+        <div class="container">
+            <div class="card">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

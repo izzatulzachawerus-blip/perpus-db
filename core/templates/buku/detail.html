@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 style="margin-bottom:20px;">Detail Buku</h2>
+
+<div class="detail-container">
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+            <small>JUDUL</small>
+            <h4>{{ buku.judul }}</h4>
+        </div>
+
+        <div class="detail-item">
+            <small>PENGARANG</small>
+            <h4>{{ buku.pengarang }}</h4>
+        </div>
+
+        <div class="detail-item">
+            <small>KATEGORI</small>
+            <h4>{{ buku.kategori }}</h4>
+        </div>
+
+        <div class="detail-item">
+            <small>PENERBIT</small>
+            <h4>{{ buku.penerbit }}</h4>
+        </div>
+
+        <div class="detail-item">
+            <small>TAHUN TERBIT</small>
+            <h4>{{ buku.tahun }}</h4>
+        </div>
+
+        <div class="detail-item">
+            <small>ISBN</small>
+            <h4>-</h4>
+        </div>
+
+        <div class="detail-item">
+            <small>RAK / LOKASI</small>
+            <h4>{{ buku.rak }}</h4>
+        </div>
+
+        <div class="detail-item">
+            <small>STOK</small>
+            <h4>{{ buku.stok }}</h4>
+        </div>
+
+    </div>
+
+    <div class="detail-desc">
+        <small>DESKRIPSI</small>
+        <p>{{ buku.deskripsi }}</p>
+    </div>
+
+    <br>
+    <a href="/buku/" class="btn-kembali">← Kembali</a>
+
+</div>
+
+{% endblock %}

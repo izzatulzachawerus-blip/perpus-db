@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center px-6 py-8">
+
+    <div class="w-full max-w-lg mx-auto"></div>
+
+        <!-- Header -->
+        <div class="mb-6 flex items-center gap-3">
+            <a href="{% url 'siswa_list' %}" 
+               class="text-gray-400 hover:text-black text-xl">
+                ←
+            </a>
+
+            <div>
+                <p class="text-sm text-gray-400">Kelola User</p>
+                <h1 class="text-xl font-semibold text-gray-800">
+                    Detail User
+                </h1>
+            </div>
+        </div>
+
+        <!-- Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+
+            <!-- Grid -->
+            <div class="grid grid-cols-2 gap-4">
+
+                <!-- ITEM -->
+                <div class="box">
+                    <p class="label">ID</p>
+                    <p class="value">{{ siswa.id }}</p>
+                </div>
+
+                <div class="box">
+                    <p class="label">Nama</p>
+                    <p class="value">{{ siswa.nama }}</p>
+                </div>
+
+                <div class="box">
+                    <p class="label">Kelas</p>
+                    <p class="value">{{ siswa.kelas }}</p>
+                </div>
+
+                <div class="box">
+                    <p class="label">NIS</p>
+                    <p class="value">{{ siswa.nis }}</p>
+                </div>
+
+                <!-- STATUS -->
+                <div class="box">
+                    <p class="label">Status</p>
+
+                    {% if siswa.is_active %}
+                        <span class="badge-green">Aktif</span>
+                    {% else %}
+                        <span class="badge-red">Nonaktif</span>
+                    {% endif %}
+                </div>
+
+                <div class="box">
+                    <p class="label">Total Peminjaman</p>
+                    <p class="value">{{ siswa.total_pinjam }}</p>
+                </div>
+
+            </div>
+
+            <!-- Peminjaman Aktif -->
+            <div class="mt-4 box">
+                <p class="label">Peminjaman Aktif</p>
+
+                {% if siswa.aktif > 0 %}
+                    <p class="text-gray-700 mt-1">
+                        {{ siswa.aktif }} buku masih dipinjam
+                    </p>
+                {% else %}
+                    <p class="text-gray-400 mt-1">
+                        Tidak ada peminjaman
+                    </p>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div class="cards">
+    <div class="card-box">
+        <h4>Total Buku</h4>
+        <h2>{{ total_buku|default:0 }}</h2>
+    </div>
+
+    <div class="card-box">
+        <h4>Total Judul</h4>
+        <h2>{{ total_judul|default:0 }}</h2>
+    </div>
+
+    <div class="card-box">
+        <h4>Sedang Dipinjam</h4>
+        <h2>{{ sedang_dipinjam|default:0 }}</h2>
+    </div>
+
+    <div class="card-box">
+        <h4>Sudah Dikembalikan</h4>
+        <h2>{{ sudah_kembali|default:0 }}</h2>
+    </div>
+</div>
+
+<br>
+
+<!-- DISTRIBUSI STOK -->
+<div class="card">
+    <h3>Distribusi Stok Buku</h3>
+
+    {% if stok_data %}
+        {% for s in stok_data %}
+            <p><b>{{ s.0 }}</b></p>
+
+            <!-- BAR SIMPLE (GA DINAMIS) -->
+            <div class="bar">
+                <div class="fill"></div>
+            </div>
+
+            <small>Stok: {{ s.1 }}</small>
+            <br><br>
+        {% endfor %}
+    {% else %}
+        <p>Tidak ada data buku</p>
+    {% endif %}
+</div>
+
+<br>
+
+<!-- RINGKASAN -->
+<div class="card">
+    <h3>Ringkasan Transaksi</h3>
+
+    <p>Sedang Dipinjam: {{ sedang_dipinjam|default:0 }}</p>
+    <div class="bar">
+        <div class="fill-orange"></div>
+    </div>
+
+    <br>
+
+    <p>Sudah Dikembalikan: {{ sudah_kembali|default:0 }}</p>
+    <div class="bar">
+        <div class="fill-green"></div>
+    </div>
+
+</div>
+
+{% endblock %}

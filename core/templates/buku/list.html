@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Daftar Buku</h1>
+
+<a href="/buku/create/" class="btn-tambah">+ Tambah Buku</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Judul</th>
+            <th>Pengarang</th>
+            <th>Kategori</th>
+            <th>Penerbit</th>
+            <th>Tahun</th>
+            <th>Rak</th>
+            <th>Stok</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in data %}
+        <tr>
+            <td>{{ b.0 }}</td>
+            <td>{{ b.1 }}</td>
+            <td>{{ b.2 }}</td>
+            <td>{{ b.3 }}</td>
+            <td>{{ b.4 }}</td>
+            <td>{{ b.5 }}</td>
+            <td>{{ b.6 }}</td>
+            <td>{{ b.7 }}</td>
+            <td>
+                <a href="{% url 'buku_detail' b.0 %}" class="btn-detail">Detail</a>
+                <a href="/buku/edit/{{ b.0 }}/" class="btn-edit">Edit</a>
+                <a href="/buku/delete/{{ b.0 }}" class="btn-hapus">Hapus</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

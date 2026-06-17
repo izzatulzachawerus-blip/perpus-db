@@ -1,0 +1,16 @@
+<h1>Tambah Siswa</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="nama" placeholder="Nama"><br>
+    <input type="text" name="kelas" placeholder="Kelas"><br>
+    <input type="text" name="nis" placeholder="NIS"><br>
+
+    <label>
+        <input type="checkbox" name="is_active">
+        Aktif
+    </label><br>
+
+    <button type="submit">Simpan</button>
+</form>

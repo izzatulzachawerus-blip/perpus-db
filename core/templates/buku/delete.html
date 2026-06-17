@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="form-container">
+    <h2>Hapus Buku</h2>
+
+    <p>Anda akan menghapus:</p>
+    <h3>{{ buku.1 }}</h3>
+
+    <p style="color: gray;">
+        Data peminjaman yang menggunakan buku ini tidak akan otomatis dihapus.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-actions">
+            <a href="/buku/" class="btn-cancel">Batal</a>
+            <button type="submit" class="btn-delete">Hapus</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+<h1>Edit Siswa</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="nama" value="{{ siswa.1 }}"><br>
+    <input type="text" name="kelas" value="{{ siswa.2 }}"><br>
+    <input type="text" name="nis" value="{{ siswa.3 }}"><br>
+
+    <label>
+        <input type="checkbox" name="is_active" {% if siswa.4 %}checked{% endif %}>
+        Aktif
+    </label><br>
+
+    <button type="submit">Update</button>
+</form>

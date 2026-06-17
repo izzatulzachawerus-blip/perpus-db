@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+
+        <h2>Tambah Peminjaman</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="grid">
+
+                <div>
+                    <label>Nama Peminjam</label>
+                    <select name="siswa">
+                        {% for s in siswa %}
+                            <option value="{{ s.0 }}">{{ s.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label>Pilih Buku</label>
+                    <select name="buku">
+                        {% for b in buku %}
+                            <option value="{{ b.0 }}">
+                                {{ b.1 }} ({{ b.2 }} stok)
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label>Tanggal Pinjam</label>
+                    <input type="date" name="tgl_pinjam">
+                </div>
+
+                <div>
+                    <label>Jatuh Tempo</label>
+                    <input type="date" name="jatuh_tempo">
+                </div>
+
+                <div>
+                    <label>Keperluan</label>
+                    <select name="keperluan">
+                        <option>Bacaan pribadi</option>
+                        <option>Tugas sekolah</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div style="margin-top:15px;">
+                <label>Catatan</label>
+                <textarea name="catatan"></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn-submit">Pinjam Buku</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}

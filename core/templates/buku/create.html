@@ -1,0 +1,27 @@
+<h1>Tambah Buku</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="judul" placeholder="Judul"><br>
+    <input type="text" name="pengarang" placeholder="Pengarang"><br>
+
+    <select name="kategori">
+        <option>Novel</option>
+        <option>Sejarah</option>
+        <option>Pendidikan</option>
+    </select><br>
+
+    <input type="text" name="penerbit" placeholder="Penerbit"><br>
+    <input type="number" name="tahun"><br>
+
+    <select name="rak">
+        <option>Rak A-01</option>
+        <option>Rak A-02</option>
+    </select><br>
+
+    <input type="number" name="stok"><br>
+    <textarea name="deskripsi"></textarea><br>
+
+    <button type="submit">Simpan</button>
+</form>
